@@ -1,0 +1,319 @@
+{
+  "name": "My workflow 5",
+  "nodes": [
+    {
+      "parameters": {
+        "formTitle": "Welcome All",
+        "formDescription": "Kindly Enter your Details",
+        "formFields": {
+          "values": [
+            {
+              "fieldLabel": "Name",
+              "placeholder": "enter your name ",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Age",
+              "fieldType": "number",
+              "placeholder": "enter your age",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Occupation",
+              "fieldType": "dropdown",
+              "fieldOptions": {
+                "values": [
+                  {
+                    "option": "worker"
+                  },
+                  {
+                    "option": "UG"
+                  },
+                  {
+                    "option": "PG"
+                  }
+                ]
+              },
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Mobile Number ",
+              "fieldType": "number",
+              "placeholder": "Enter your Mobile Number",
+              "requiredField": true
+            },
+            {
+              "fieldLabel": "Email",
+              "fieldType": "email",
+              "placeholder": "Enter your Email",
+              "requiredField": true
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.formTrigger",
+      "typeVersion": 2.2,
+      "position": [
+        -320,
+        -160
+      ],
+      "id": "5bb1f378-091d-4131-a345-07ac9ba87ed0",
+      "name": "On form submission",
+      "webhookId": "8afcdda1-8eef-4f9d-bc41-4c8dd32e2a7f"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "=Analyze the content from the on form submission\nName: {{ $json.Name }}\nAge:{{ $json.Age }}\nOccupation:{{ $json.Occupation }}\nMobile Number:{{ $json['Mobile Number '] }}\nEmail:{{ $json.Email }}\nSubmittedAt:{{ $json.submittedAt }}\nformMode:{{ $json.formMode }}",
+        "hasOutputParser": true,
+        "options": {
+          "systemMessage": "You are a helpful assistant.You are an intelligent, reliable, and context-aware AI assistant designed to help users achieve their goals efficiently. You can understand and respond to natural language, carry out tasks, retrieve relevant information, ask clarifying questions when necessary, and adapt to changing instructions. Always communicate clearly, stay focused on the user's objective, and ensure all responses are helpful, You are an intelligent, reliable, and context-aware AI assistant designed to help users achieve their goals efficiently. You can understand and respond to natural language, carry out tasks, retrieve relevant information, ask clarifying questions when necessary, and adapt to changing instructions. Always communicate clearly, stay focused on the user's objective, and ensure all responses are helpful, accurate, and easy to understand.You are an intelligent, reliable, and context-aware AI assistant designed to help users achieve their goals efficiently. You can understand and respond to natural language, carry out tasks, retrieve relevant information, ask clarifying questions when necessary, and adapt to changing instructions. Always communicate clearly, stay focused on the user's objective, and ensure all responses are helpful, accurate, and easy to understand.send a structured mail after append in the google sheet. and it should be professional. not include any stars and slash symbols in the mail."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        -180,
+        -160
+      ],
+      "id": "467875fd-37ea-4a3a-be9d-fc38638e70ed",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        -160,
+        60
+      ],
+      "id": "a4d78cbd-eead-4ac5-a189-e717b2326511",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "h39FaRg0BLsfEyZB",
+          "name": "Google Gemini(PaLM) Api account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json['Name and Address of the Organization where the Field project done'] }}",
+        "subject": "Confirmation Email",
+        "emailType": "text",
+        "message": "=Hi Registers, \n\nThank you for registering for AI Expo 2025! \n\nHere are your event details:\n\n Date: 2.7.25 \n Time: 10.00am to 1.00pm \n Locaion : SNS Institutions\n Topic: Futuristic AI \n\nWe’re excited to have you join us. You'll receive a reminder before the event, and we’ll also send a recording and summary afterward. \n\nIf you have any questions, feel free to reply to this email.\n\nSee you soon!\n              -SNS Institutions",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        300,
+        -160
+      ],
+      "id": "88bf41d8-7c7b-47a5-b58f-3e3030df68dd",
+      "name": "Send a message",
+      "webhookId": "713568f8-4c0c-46ba-a930-e74685957adb",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "OplhUr0hEYbsiCu4",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "1ck4_FJuYTdyLumYGLAxcpXqdsjslHGwbOTSh-oxduVM",
+          "mode": "list",
+          "cachedResultName": "Field Project 2023-2024",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ck4_FJuYTdyLumYGLAxcpXqdsjslHGwbOTSh-oxduVM/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "II CS A",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1ck4_FJuYTdyLumYGLAxcpXqdsjslHGwbOTSh-oxduVM/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "S.No": "={{ $('On form submission').item.json.Name }}",
+            "Register No.": "={{ $('On form submission').item.json.Age }}",
+            "Name of the Student ": "={{ $('On form submission').item.json.Occupation }}",
+            "Title of the Field project": "={{ $('On form submission').item.json['Mobile Number '] }}",
+            "Name and Address of the Organization where the Field project done": "={{ $('On form submission').item.json.Email }}",
+            "Companyname": "={{ $('On form submission').item.json.submittedAt }}",
+            "Co-Guide Name with designation ": "={{ $('On form submission').item.json.formMode }}"
+          },
+          "matchingColumns": [],
+          "schema": [
+            {
+              "id": "S.No",
+              "displayName": "S.No",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Register No.",
+              "displayName": "Register No.",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name of the Student ",
+              "displayName": "Name of the Student ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Title of the Field project",
+              "displayName": "Title of the Field project",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Name and Address of the Organization where the Field project done",
+              "displayName": "Name and Address of the Organization where the Field project done",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Companyname",
+              "displayName": "Companyname",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Co-Guide Name with designation ",
+              "displayName": "Co-Guide Name with designation ",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Guide Name",
+              "displayName": "Guide Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            },
+            {
+              "id": "Duration",
+              "displayName": "Duration",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": true
+            }
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.6,
+      "position": [
+        140,
+        -160
+      ],
+      "id": "6c8ca37d-e267-4350-b848-abb446115622",
+      "name": "Append row in sheet",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "2oJaT4YnbOZS1u4o",
+          "name": "Google Sheets account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "On form submission": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "Append row in sheet",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Append row in sheet": {
+      "main": [
+        [
+          {
+            "node": "Send a message",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "c828ab6c-7bb4-4635-b39a-404d6d12360e",
+  "meta": {
+    "instanceId": "c9a8c03f19cff291c3f008833741d9ac1479c315f6a14be1077791cd26f17d7e"
+  },
+  "id": "WOJlxdGUMzTT52Lb",
+  "tags": []
+}
